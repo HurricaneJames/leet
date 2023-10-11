@@ -1,10 +1,39 @@
+import { MinHeap } from "./utils/MinHeap";
+import { PriorityQueue } from "./utils/PriorityQueue";
 
 type LNode = {
   value: number,
   next: LNode | null,
 }
 
-function mergeKSortedLists(listsX: LNode[]): LNode {
+function mergeKSortedLists(lists: LNode[]): LNode {
+  // todo - input validation 
+  let pq = new PriorityQueue<LNode>();
+  let head = lNode(0);
+  let cur = head;
+
+  // k - number of arrays | n - total number of elements in all arrays
+  // O(k log(k))
+  lists.forEach(list => {
+    pq.enqueue(list, list.value)
+  });
+  // O(n log(k))
+  while (pq.hasNext()) {
+    const next = pq.dequeue()!;
+    cur.next = lNode(next.value);
+    cur = cur.next;
+    if (next.next != null) {
+      pq.enqueue(next.next, next.next.value);
+    }
+  }
+
+  // total: O((n+k) log(k))
+  // space: O(n + k) - because we do not modify the original lists
+  //    could do it in O(k) space if we are willing to modify the original 
+  return head.next!;
+}
+
+function mergeKSortedListsWithoutHeap(listsX: LNode[]): LNode {
   if (listsX.length === 0) throw new Error("Invalid input");
 
   const lists: (LNode | null)[] = [...listsX];
@@ -12,12 +41,12 @@ function mergeKSortedLists(listsX: LNode[]): LNode {
   const output: LNode = lNode(0); // going to discard this one anyway
   let head: LNode = output;
   let cleared = 0;
-  // time: O(m) // where m is total number of elements
+  // time: O(n) // where m is total number of elements
   while (cleared < listsX.length) {
     let minValue = Number.MAX_VALUE;
     let minValueIndices: number[] = [];
-    // time: O(n)
-    // space: O(n)
+    // time: O(k)
+    // space: O(k)
     lists.forEach((l, idx) => {
       if (l === null) return;
       if (l.value < minValue) {
@@ -29,7 +58,7 @@ function mergeKSortedLists(listsX: LNode[]): LNode {
     });
     // push those indices on the output list
     const toRemove = [];
-    // O(n)
+    // O(k)
     minValueIndices.forEach(idx => {
       const node = lists[idx]!;
       head.next = lNode(node.value)
@@ -38,7 +67,7 @@ function mergeKSortedLists(listsX: LNode[]): LNode {
       if (node.next === null) cleared++;
     });
   }
-  // O(m * 2n) => O(mn)
+  // O(n * 2k) => O(nk)
   return output.next!;
 }
 
@@ -81,6 +110,7 @@ function areListsSame(left: LNode | null, right: LNode | null): boolean {
 function main() {
   const exampleLists = example.map(lv => convertToList(lv));
   const result = mergeKSortedLists(exampleLists);
+  console.log('result: ', result);
 
   console.log('example: ', example);
   console.log('result: ', convertToArray(result));

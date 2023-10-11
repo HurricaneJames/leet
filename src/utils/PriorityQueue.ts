@@ -8,7 +8,7 @@ type Node<T> = {
 type ComparisonOp<T> = (a: T, b: T) => number;
 // a priority queue based on MinHeap (ie. lower priority number => higher priority)
 export class PriorityQueue<T> {
-  
+
   values: Node<T>[] = [];
   compare: ComparisonOp<Node<T>>
 
@@ -26,7 +26,7 @@ export class PriorityQueue<T> {
       let parentIndex = Math.floor((index - 1) / 2);
       let parent = this.values[parentIndex];
 
-      if (this.compare(parent, current) > 0 ) {
+      if (this.compare(parent, current) > 0) {
         this.values[parentIndex] = current;
         this.values[index] = parent;
         index = parentIndex;
@@ -36,7 +36,7 @@ export class PriorityQueue<T> {
 
   dequeue() {
     if (this.values.length === 0) return undefined;
-    if (this.values.length <= 2) return this.values.shift();
+    if (this.values.length <= 2) return this.values.shift()!.val;
 
     const min = this.values[0];
     const end = this.values.pop()!;
@@ -72,7 +72,11 @@ export class PriorityQueue<T> {
       index = swap;
     }
 
-    return min;
+    return min.val;
+  }
+
+  hasNext(): boolean {
+    return this.values.length > 0;
   }
 
   toArray() {
@@ -80,14 +84,14 @@ export class PriorityQueue<T> {
     let output = []
     let item;
     while ((item = this.dequeue()) !== undefined) {
-      output.push(item.val);
+      output.push(item);
     }
     this.values = backup;
     return output;
   }
 }
 
-export function testPriorityQueue() {
+function testPriorityQueue() {
   const pq = new PriorityQueue<number>();
   pq.enqueue(3, 2);
   pq.enqueue(4, 5);
@@ -98,6 +102,17 @@ export function testPriorityQueue() {
   const output = pq.toArray();
   console.log('%s PriorityQueue: %o', isEqualMark(output, [31, 1, 3, 6, 4]), output);
 }
+
+function testHasNext() {
+  const pq = new PriorityQueue<number>();
+  pq.enqueue(3, 2);
+  const result = pq.hasNext();
+  console.log('%s PriorityQueue.hasNext: %o', isEqualMark(true, result), result)
+  pq.dequeue();
+  const resultAfterDequeue = pq.hasNext();
+  console.log('%s PriorityQueue.hasNext (empty): %o', isEqualMark(false, resultAfterDequeue), resultAfterDequeue)
+}
 export function test() {
   testPriorityQueue();
+  testHasNext();
 }
