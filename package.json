@@ -1,0 +1,18 @@
+{
+  "name": "leet",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "current": "tsx src/mergeKSortedLists.ts",
+    "mergeKSortedLists": "tsx src/mergeKSortedLists.ts",
+    "kthSmallest": "tsx src/kthSmallestElementInSortedMatrix.ts"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.3",
+    "@types/node": "^18.16.3",
+    "tslib": "^2.5.0",
+    "tsx": "^3.13.0",
+    "typescript": "^5.0.4"
+  }
+}
