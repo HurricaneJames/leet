@@ -5,9 +5,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "current": "pnpm run mergeKSortedLists",
-    "mergeKSortedLists": "tsx src/mergeKSortedLists.ts",
-    "kthSmallest": "tsx src/kthSmallestElementInSortedMatrix.ts"
+    "current": "pnpm jest mergeKSortedLists"
   },
   "devDependencies": {
     "@types/jest": "^29.5.5",

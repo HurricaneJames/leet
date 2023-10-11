@@ -1,20 +1,20 @@
+import MinHeap from "./utils/MinHeap";
 
-const matrix = [
-  [1, 5, 9],
-  [10, 11, 13],
-  [12, 13, 15],
-];
-// const x = [1, 5, 9, 10, 11, 12, 13, 13, 15];
+export default function kthSmallestElementInSortedMatrix(matrix: number[][], kth: number): number {
+  // todo input validation if kth > matrix.sumRowLengths then throw
+  if (kth < 0) throw new Error("invalid input, kth must be greater than 0");
+  const heap = matrix.reduce((acc, row) => {
+    acc.addAll(row);
+    return acc;
+  }, new MinHeap());
+  let result = heap.pop();
+  for (let i=1; i<kth; i++) { result = heap.pop(); }
+  if (kth === undefined) throw new Error('Invalid input, kth must be less than number of elements in matrix');
+  return result!;
+}
 
-const expected: [number, number][] = [
-  [1, 1],
-  [2, 5],
-  [6, 12],
-  [8, 13],
-  [9, 15],
-];
-
-function kthSmallest(matrix: number[][], kth: number): number {
+// Time: O(n^2) | Space: O(n)
+export function kthSmallestNoHeap(matrix: number[][], kth: number): number {
   // time
   // flat() => O(n)
   // sort() => O(n^2) worst | O(nlog(n)) average
@@ -28,10 +28,3 @@ function kthSmallest(matrix: number[][], kth: number): number {
   return sm[kth - 1];
 }
 
-function main() {
-  expected.forEach(([kth, expect]) => {
-    const result = kthSmallest(matrix, kth);
-    console.log(`kthSmallest(${kth}) = ${result} ${result === expect ? '==' : '!='} ${expect}`)
-  });
-}
-main();

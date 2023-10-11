@@ -1,11 +1,11 @@
 import PriorityQueue from "./utils/PriorityQueue";
 
-type LNode = {
+export type LNode = {
   value: number,
   next: LNode | null,
 }
 
-function mergeKSortedLists(lists: LNode[]): LNode {
+export default function mergeKSortedLists(lists: LNode[]): LNode {
   // todo - input validation 
   let pq = new PriorityQueue<LNode>();
   let head = lNode(0);
@@ -32,7 +32,7 @@ function mergeKSortedLists(lists: LNode[]): LNode {
   return head.next!;
 }
 
-function mergeKSortedListsWithoutHeap(listsX: LNode[]): LNode {
+export function mergeKSortedListsWithoutHeap(listsX: LNode[]): LNode {
   if (listsX.length === 0) throw new Error("Invalid input");
 
   const lists: (LNode | null)[] = [...listsX];
@@ -70,50 +70,6 @@ function mergeKSortedListsWithoutHeap(listsX: LNode[]): LNode {
   return output.next!;
 }
 
-const example = [
-  [0, 4, 5],
-  [1, 3, 4],
-  [2, 6],
-];
-const expectedResult = [0, 1, 2, 3, 4, 4, 5, 6];
-function lNode(value: number): LNode {
+export function lNode(value: number): LNode {
   return { value, next: null };
 }
-function convertToList(values: number[]): LNode {
-  if (values.length === 0) throw new Error("Invalid Input");
-  const head = lNode(values[0]);
-  let tail = head;
-  for (let i = 1; i < values.length; i++) {
-    tail.next = lNode(values[i]);
-    tail = tail.next;
-  }
-  return head;
-}
-function convertToArray(list: LNode): number[] {
-  const arr: number[] = []
-  let n = list;
-  arr.push(n.value);
-  while (n.next !== null) {
-    n = n.next;
-    arr.push(n.value);
-  }
-  return arr;
-}
-
-function areListsSame(left: LNode | null, right: LNode | null): boolean {
-  if (left === null && right === null) return true;
-  if (left?.value !== right?.value) return false;
-  return areListsSame(left?.next ?? null, right?.next ?? null);
-}
-
-function main() {
-  const exampleLists = example.map(lv => convertToList(lv));
-  const result = mergeKSortedLists(exampleLists);
-  console.log('result: ', result);
-
-  console.log('example: ', example);
-  console.log('result: ', convertToArray(result));
-  console.log('expect: ', expectedResult);
-  console.log('valid: ', areListsSame(result, convertToList(expectedResult)));
-}
-main();
