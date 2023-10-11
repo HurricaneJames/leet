@@ -1,7 +1,4 @@
-import { isEqualMark } from "./testHelpers";
-
-
-export class MaxHeap {
+export default class MaxHeap {
   values: number[] = [];
 
   addAll(elements: number[]) {
@@ -67,28 +64,3 @@ export class MaxHeap {
   }
 }
 
-
-export function testMaxHeap() {
-  const tree = new MaxHeap();
-  tree.add(3);
-  tree.add(4);
-  tree.add(31);
-  tree.add(6);
-  console.log('%s MaxHeap: %o', isEqualMark(tree.values, [31, 6, 4, 3]), tree);
-
-  const r = tree.pop();
-  console.log('%s   Extract: %o ', isEqualMark(r, 31), r);
-  console.log('%s     values: ', isEqualMark(tree.values, [6, 3, 4]), tree.values);
-}
-function testMaxHeapFromArray() {
-  const tree = new MaxHeap();
-  tree.addAll([3, 4, 31, 6]);
-  console.log('%s MaxHeap from Array: %o', isEqualMark(tree.values, [31, 6, 4, 3]), tree);
-}
-// function testMinHeap() {
-//   const tree = MinHeap();
-// }
-export function test() {
-  testMaxHeap();
-  testMaxHeapFromArray();
-}

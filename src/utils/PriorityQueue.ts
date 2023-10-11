@@ -1,5 +1,3 @@
-import { isEqualMark } from "./testHelpers";
-
 type Node<T> = {
   val: T,
   priority: number,
@@ -7,7 +5,7 @@ type Node<T> = {
 
 type ComparisonOp<T> = (a: T, b: T) => number;
 // a priority queue based on MinHeap (ie. lower priority number => higher priority)
-export class PriorityQueue<T> {
+export default class PriorityQueue<T> {
 
   values: Node<T>[] = [];
   compare: ComparisonOp<Node<T>>
@@ -91,28 +89,3 @@ export class PriorityQueue<T> {
   }
 }
 
-function testPriorityQueue() {
-  const pq = new PriorityQueue<number>();
-  pq.enqueue(3, 2);
-  pq.enqueue(4, 5);
-  pq.enqueue(31, 1);
-  pq.enqueue(1, 2); // priority queue does not maintain insertion order :p
-  pq.enqueue(6, 3);
-
-  const output = pq.toArray();
-  console.log('%s PriorityQueue: %o', isEqualMark(output, [31, 1, 3, 6, 4]), output);
-}
-
-function testHasNext() {
-  const pq = new PriorityQueue<number>();
-  pq.enqueue(3, 2);
-  const result = pq.hasNext();
-  console.log('%s PriorityQueue.hasNext: %o', isEqualMark(true, result), result)
-  pq.dequeue();
-  const resultAfterDequeue = pq.hasNext();
-  console.log('%s PriorityQueue.hasNext (empty): %o', isEqualMark(false, resultAfterDequeue), resultAfterDequeue)
-}
-export function test() {
-  testPriorityQueue();
-  testHasNext();
-}

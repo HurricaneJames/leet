@@ -1,7 +1,4 @@
-import { isEqualMark } from "./testHelpers";
-
-
-export class MinHeap {
+export default class MinHeap {
   values: number[] = [];
 
   addAll(elements: number[]) {
@@ -66,24 +63,3 @@ export class MinHeap {
 }
 
 
-export function testMinHeap() {
-  const tree = new MinHeap();
-  tree.add(3);
-  tree.add(4);
-  tree.add(31);
-  tree.add(6);
-  console.log('%s MinHeap: %o', isEqualMark(tree.values, [3, 4, 31, 6]), tree);
-
-  const r = tree.pop();
-  console.log('%s   Extract: %o ', isEqualMark(r, 3), r);
-  console.log('%s     values: ', isEqualMark(tree.values, [4, 6, 31]), tree.values);
-}
-function testMinHeapFromArray() {
-  const tree = new MinHeap();
-  tree.addAll([3, 4, 31, 6]);
-  console.log('%s MinHeap from Array: %o', isEqualMark(tree.values, [3, 4, 31, 6]), tree);
-}
-export function test() {
-  testMinHeap();
-  testMinHeapFromArray();
-}

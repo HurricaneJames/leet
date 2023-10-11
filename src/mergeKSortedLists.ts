@@ -1,5 +1,4 @@
-import { MinHeap } from "./utils/MinHeap";
-import { PriorityQueue } from "./utils/PriorityQueue";
+import PriorityQueue from "./utils/PriorityQueue";
 
 type LNode = {
   value: number,
