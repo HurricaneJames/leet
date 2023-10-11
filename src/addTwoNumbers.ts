@@ -19,7 +19,7 @@ export default function addTwoNumbers(
   let rCur: ListNumber | null = b;
   let carryover = 0;
   // time O(max(n, m)) // or O(n + m) for safety
-  // space O(n)
+  // space O(max(n, m) + 1)
   while (lCur !== null || rCur !== null) {
     let l = lCur !== null ? lCur.digit : 0;
     let r = rCur !== null ? rCur.digit : 0;
