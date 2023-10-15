@@ -1,4 +1,5 @@
-import mergeKSortedLists, { LNode, lNode, mergeKSortedListsWithoutHeap } from "../mergeKSortedLists";
+import { ListNode } from "../utils/ListNode";
+import mergeKSortedLists, { mergeKSortedListsWithoutHeap } from "../mergeKSortedLists";
 
 describe("mergeKSortedLists", () => {
   const example = [
@@ -20,24 +21,24 @@ describe("mergeKSortedLists", () => {
   });
 });
 
-function convertToList(values: number[]): LNode {
+function convertToList(values: number[]): ListNode {
   if (values.length === 0) throw new Error("Invalid Input");
-  const head = lNode(values[0]);
+  const head = new ListNode(values[0]);
   let tail = head;
   for (let i = 1; i < values.length; i++) {
-    tail.next = lNode(values[i]);
+    tail.next = new ListNode(values[i]);
     tail = tail.next;
   }
   return head;
 }
 
-function convertToArray(list: LNode): number[] {
+function convertToArray(list: ListNode): number[] {
   const arr: number[] = [];
   let n = list;
-  arr.push(n.value);
+  arr.push(n.val);
   while (n.next !== null) {
     n = n.next;
-    arr.push(n.value);
+    arr.push(n.val);
   }
   return arr;
 }

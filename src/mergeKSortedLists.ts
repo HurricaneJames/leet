@@ -1,28 +1,24 @@
+import { ListNode } from "./utils/ListNode";
 import PriorityQueue from "./utils/PriorityQueue";
 
-export type LNode = {
-  value: number,
-  next: LNode | null,
-}
-
-export default function mergeKSortedLists(lists: LNode[]): LNode {
+export default function mergeKSortedLists(lists: ListNode[]): ListNode {
   // todo - input validation 
-  let pq = new PriorityQueue<LNode>();
-  let head = lNode(0);
+  let pq = new PriorityQueue<ListNode>();
+  let head = new ListNode(0);
   let cur = head;
 
   // k - number of arrays | n - total number of elements in all arrays
   // O(k log(k))
   lists.forEach(list => {
-    pq.enqueue(list, list.value)
+    pq.enqueue(list, list.val)
   });
   // O(n log(k))
   while (pq.hasNext()) {
     const next = pq.dequeue()!;
-    cur.next = lNode(next.value);
+    cur.next = new ListNode(next.val);
     cur = cur.next;
     if (next.next != null) {
-      pq.enqueue(next.next, next.next.value);
+      pq.enqueue(next.next, next.next.val);
     }
   }
 
@@ -32,13 +28,13 @@ export default function mergeKSortedLists(lists: LNode[]): LNode {
   return head.next!;
 }
 
-export function mergeKSortedListsWithoutHeap(listsX: LNode[]): LNode {
+export function mergeKSortedListsWithoutHeap(listsX: ListNode[]): ListNode {
   if (listsX.length === 0) throw new Error("Invalid input");
 
-  const lists: (LNode | null)[] = [...listsX];
+  const lists: (ListNode | null)[] = [...listsX];
   // without a heap
-  const output: LNode = lNode(0); // going to discard this one anyway
-  let head: LNode = output;
+  const output: ListNode = new ListNode(0); // going to discard this one anyway
+  let head: ListNode = output;
   let cleared = 0;
   // time: O(n) // where m is total number of elements
   while (cleared < listsX.length) {
@@ -48,10 +44,10 @@ export function mergeKSortedListsWithoutHeap(listsX: LNode[]): LNode {
     // space: O(k)
     lists.forEach((l, idx) => {
       if (l === null) return;
-      if (l.value < minValue) {
-        minValue = l.value;
+      if (l.val < minValue) {
+        minValue = l.val;
         minValueIndices = [idx];
-      } else if (l.value === minValue) {
+      } else if (l.val === minValue) {
         minValueIndices.push(idx);
       }
     });
@@ -60,7 +56,7 @@ export function mergeKSortedListsWithoutHeap(listsX: LNode[]): LNode {
     // O(k)
     minValueIndices.forEach(idx => {
       const node = lists[idx]!;
-      head.next = lNode(node.value)
+      head.next = new ListNode(node.val)
       head = head.next;
       lists[idx] = node.next
       if (node.next === null) cleared++;
@@ -68,8 +64,4 @@ export function mergeKSortedListsWithoutHeap(listsX: LNode[]): LNode {
   }
   // O(n * 2k) => O(nk)
   return output.next!;
-}
-
-export function lNode(value: number): LNode {
-  return { value, next: null };
 }
