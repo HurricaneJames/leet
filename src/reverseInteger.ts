@@ -13,11 +13,11 @@ const MIN_INT_O10 = Math.trunc(MIN_INT / 10);
 export default function reverse(x: number): number {
   let result = 0;
   while (x != 0) {
+    if (result > MAX_INT_O10) {console.log('clamp: MAX: ', MAX_INT_O10); return 0;}
+    if (result < MIN_INT_O10) {console.log('clamp: MIN: ', MIN_INT_O10); return 0;}
     const rightDigit = x % 10;
     x = Math.trunc(x/10);
     result = result * 10 + rightDigit;
-    if (result > MAX_INT_O10) return 0;
-    if (result < MIN_INT_O10) return 0;
   }
   return result;
 }
