@@ -4,6 +4,8 @@
 // m - # nodes in the list
 // n - number of nodes from the end of the list
 
+// perf: O(n) - single pass
+// space: O(1) - no more circle buffer
 export default function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
   if (head === null || !head.next) { return null; }
 
@@ -17,11 +19,13 @@ export default function removeNthFromEnd(head: ListNode | null, n: number): List
     if (counter > n) target = target.next!;
     counter++;
   }
-
+  // only way this can happen is if n >= size(list)
+  // since we assume valid input, head must be the target
+  // to remove
   if (counter <= n) return head.next
 
+  // remove the desired node
   target.next = target.next?.next ?? null;
-
   return head;
 }
 
