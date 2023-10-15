@@ -1,3 +1,5 @@
+import {ListNode} from './utils/ListNode';
+
 // Given the head of a linked list, remove the nth node from the end of the list and return its head.
 // Follow up: Could you do this in one pass?
 
@@ -31,7 +33,7 @@ export default function removeNthFromEnd(head: ListNode | null, n: number): List
 
 // perf: O(m) - single pass
 // space: O(n) - we keep a buffer
-function removeNthFromEndWithCircleBuffer(
+export function removeNthFromEndWithCircleBuffer(
   head: ListNode | null,
   n: number
 ): ListNode | null {
@@ -56,25 +58,3 @@ function removeNthFromEndWithCircleBuffer(
   return result;
 }
 
-/**
- * Definition for singly-linked list.
- */
-export class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
-
-
-function listToArray(head: ListNode | null): number[] {
-  if (head === null) return [];
-  let output = [head.val];
-  while (head.next) {
-    head = head.next;
-    output.push(head.val);
-  }
-  return output;
-}

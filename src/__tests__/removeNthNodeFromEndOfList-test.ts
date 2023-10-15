@@ -1,4 +1,5 @@
-import removeNthFromEnd, { ListNode } from "../removeNthNodeFromEndOfList";
+import { ListNode, arrayToList } from "../utils/ListNode";
+import removeNthFromEnd from "../removeNthNodeFromEndOfList";
 
 describe("removeNthNodeFromEndOfList", () => {
   [
@@ -8,28 +9,11 @@ describe("removeNthNodeFromEndOfList", () => {
     { list: [1, 2, 3], n: 3, expected: [2, 3] },
   ].forEach(({ list, n, expected }) => {
     it(`[${list}] n: ${n} -> [${expected}]`, () => {
-      expect(listToArray(removeNthFromEnd(arrayToList(list), n))).toEqual(
+      const result = removeNthFromEnd(arrayToList(list), n);
+      expect(result ? result.toArray() : []).toEqual(
         expected
       );
     });
   });
 });
 
-function arrayToList(nums: number[]): ListNode {
-  const head = new ListNode(nums[0]);
-  let cur = head;
-  for (let i=1; i<nums.length; i++) {
-    cur = cur.next = new ListNode(nums[i]);
-  }
-  return head;
-}
-
-function listToArray(head: ListNode | null): number[] {
-  if (head === null) return [];
-  let output = [head.val];
-  while (head.next) {
-    head = head.next;
-    output.push(head.val);
-  }
-  return output;
-}
