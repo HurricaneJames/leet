@@ -18,7 +18,7 @@ describe("threeSum", () => {
       const sums = threeSum(nums);
       expect(sums.length).toBe(expected.length);
       expected.forEach((exp) => {
-        expect(sums.findIndex((v) => v.sort().join(",") === exp.join(",")));
+        expect(sums.findIndex((v) => v.sort().join(",") === exp.join(",")) > -1);
       });
     });
   });
