@@ -27,6 +27,16 @@ import isValidSudoku from "./validSudoku";
 // * board[i][j] is a digit or '.'.
 // * It is guaranteed that the input board has only one solution.
 
+// ways to speed up
+// 1. do not use the previously designed isValidSudoku function
+//    instead we should keep an array of possible values for each row, column, and square
+//    then we can check if something is valid simply by checking if those sets all contain
+//    the value we are trying
+
+// Complexity: n is the number of empty cells
+//   time - O(9^n)ß
+//   space - O(n)
+
 export default function solveSudoku(board: string[][]): void {
   findRowValues(board, 0, possibleInRow(board, 0));
 }
