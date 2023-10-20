@@ -1,5 +1,5 @@
 import invertBinaryTree from "../invertBinaryTree";
-import { buildTree } from "../utils/TreeNode";
+import TreeNode from "../utils/TreeNode";
 
 describe("invertBinaryTree", () => {
   [
@@ -8,7 +8,7 @@ describe("invertBinaryTree", () => {
     { input: [2, 1, 3], expected: [2, 3, 1] },
   ].forEach(({ input, expected }) => {
     test(`${JSON.stringify(input)} -> ${JSON.stringify(expected)}`, () => {
-      expect(invertBinaryTree(buildTree(input))?.toArray() ?? []).toEqual(expected);
+      expect(invertBinaryTree(TreeNode.fromArray(input))?.toArray() ?? []).toEqual(expected);
     });
   });
 });

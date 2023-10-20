@@ -1,5 +1,5 @@
 import isSubtree from "../subtreeOfAnotherTree";
-import TreeNode, { buildTree } from "../utils/TreeNode";
+import TreeNode from "../utils/TreeNode";
 
 describe("subtreeOfAnotherTree", () => {
   [
@@ -12,7 +12,7 @@ describe("subtreeOfAnotherTree", () => {
     { s: [1, 2, 3], t: [1, 2, 3], expected: true },
   ].forEach(({ s, t, expected }) => {
     test(`${JSON.stringify(s)}, ${JSON.stringify(t)} -> ${expected}`, () => {
-      expect(isSubtree(buildTree(s), buildTree(t))).toEqual(expected);
+      expect(isSubtree(TreeNode.fromArray(s), TreeNode.fromArray(t))).toEqual(expected);
     });
   });
 });

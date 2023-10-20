@@ -1,5 +1,5 @@
 import isSameTree from "../sameTree";
-import { buildTree } from "../utils/TreeNode";
+import TreeNode from "../utils/TreeNode";
 
 describe("sameTree", () => {
   [
@@ -8,7 +8,7 @@ describe("sameTree", () => {
     { p: [1, 2, 1], q: [1, 1, 2], expected: false },
   ].forEach(({ p, q, expected }) => {
     test(`${JSON.stringify(p)}, ${JSON.stringify(q)} => ${expected}`, () => {
-      expect(isSameTree(buildTree(p), buildTree(q))).toEqual(expected);
+      expect(isSameTree(TreeNode.fromArray(p), TreeNode.fromArray(q))).toEqual(expected);
     });
   });
 });
