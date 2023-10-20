@@ -1,3 +1,5 @@
+import validateBinarySearchTree from "../validateBinarySearchTree";
+
 export default class TreeNode {
   val: number;
   left: TreeNode | null;
@@ -44,6 +46,14 @@ export default class TreeNode {
   bstFindPathToValue(value: number): TreeNode[] {
     const path: TreeNode[] = [];
     return _bstFindPathToValue(this, value, path) ? path : [];
+  }
+
+  /**
+   * Returns true if the tree is a valid binary search tree, false otherwise
+   * @complexity O(n) time / O(n) space
+   */
+  bstIsValid(): boolean {
+    return validateBinarySearchTree(this);
   }
 }
 
