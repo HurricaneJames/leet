@@ -35,10 +35,40 @@ export default class TreeNode {
     if (val > this.val && this.right) return this.right.bstFindNode(val);
     return null;
   }
+
+  bstFindPathToNode(node: TreeNode): TreeNode[] {
+    const path: TreeNode[] = [];
+    return _bstFindPathToNode(this, node, path) ? path : [];
+  }
+
+  bstFindPathToValue(value: number): TreeNode[] {
+    const path: TreeNode[] = [];
+    return _bstFindPathToValue(this, value, path) ? path : [];
+  }
 }
 
 type TreeNodeArray = (number | null)[];
 function _buildTree(n: TreeNodeArray, node: number): TreeNode | null {
   if (node >= n.length || n[node] == null) return null;
   return new TreeNode(n[node]!, _buildTree(n, node * 2 + 1), _buildTree(n, node * 2 + 2));
+}
+
+// returns true if a path was found, false if there is no path
+function _bstFindPathToNode(root: TreeNode | null, target: TreeNode, path: TreeNode[]): boolean {
+  if (root === null) return false;
+  path.push(root);
+  return (
+    root === target ||
+    _bstFindPathToNode(root.val > target.val ? root.left : root.right, target, path)
+  );
+}
+
+// returns true if a path was found, false if there is no path
+function _bstFindPathToValue(root: TreeNode | null, target: number, path: TreeNode[]): boolean {
+  if (root === null) return false;
+  path.push(root);
+  return (
+    root.val === target ||
+    _bstFindPathToValue(root.val > target ? root.left : root.right, target, path)
+  );
 }
