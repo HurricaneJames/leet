@@ -7,24 +7,26 @@ export default class TreeNode {
     this.left = left === undefined ? null : left;
     this.right = right === undefined ? null : right;
   }
-  toArray(): number[] {
-    const result: number[] = [];
+  toArray(): TreeNodeArray {
+    const result: TreeNodeArray = [];
     this._toArray(result, 0);
     return result;
   }
 
-  _toArray(result: number[], i: number) {
+  _toArray(result: TreeNodeArray, i: number) {
     result[i] = this.val;
-    if (this.left) this.left._toArray(result, i * 2 + 1);
-    if (this.right) this.right._toArray(result, i * 2 + 2);
+    const left = i * 2 + 1;
+    if (this.left) this.left._toArray(result, left);
+    if (this.right) this.right._toArray(result, left + 1);
   }
 }
 
-export function buildTree(n: number[]): TreeNode | null {
+type TreeNodeArray = (number | null)[];
+export function buildTree(n: TreeNodeArray): TreeNode | null {
   return _buildTree(n, 0);
 }
 
-function _buildTree(n: number[], node: number): TreeNode | null {
-  if (node >= n.length) return null;
-  return new TreeNode(n[node], _buildTree(n, node * 2 + 1), _buildTree(n, node * 2 + 2));
+function _buildTree(n: TreeNodeArray, node: number): TreeNode | null {
+  if (node >= n.length || n[node] == null) return null;
+  return new TreeNode(n[node]!, _buildTree(n, node * 2 + 1), _buildTree(n, node * 2 + 2));
 }
