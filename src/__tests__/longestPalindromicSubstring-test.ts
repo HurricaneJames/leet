@@ -1,6 +1,4 @@
-import longestPalindrome, {
-  isSubstringAPalindrome,
-} from "../longestPalindromicSubstring";
+import longestPalindrome, { isSubstringAPalindrome } from "../longestPalindromicSubstring";
 
 describe("longestPalindromicSubstring", () => {
   const examples = [
