@@ -1,4 +1,4 @@
-import rob from "./houseRobber2";
+import rob from "../houseRobber2";
 
 describe("houseRobber2", () => {
   [
