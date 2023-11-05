@@ -25,17 +25,12 @@
 class Solution:
     def getSum(self, a: int, b: int) -> int:
         MAX_MASK = 0xffffffff
-        a = a & MAX_MASK
-        while b != 0:
-            tmp = (a ^ b) & MAX_MASK
-            carry = ((a & b) << 1) & MAX_MASK
+        while (b & MAX_MASK) > 0:
+            carry = ((a & b) << 1)
+            a = a ^ b
             b = carry
-            a = tmp
 
-        if a >> 31 == 1:
-            return ~(a ^ MAX_MASK)
-        
-        return a
+        return a & MAX_MASK if b > 0 else a
     
 # Tests
 import pytest
