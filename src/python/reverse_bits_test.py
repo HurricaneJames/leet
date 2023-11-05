@@ -30,8 +30,6 @@ class Solution:
         result = 0
 
         count = 0
-        # note: cannot go until result = 0 because then we do not have enough padding
-        # for i in range(32):
         while n > 0:
             result <<= 1 # double result
             result += n & 1 # add the least significant bit of n to result
@@ -39,7 +37,6 @@ class Solution:
             count += 1
 
         result <<= 32 - count # pad the result with 0s on the right
-
         return result
     
 
