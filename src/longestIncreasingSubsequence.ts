@@ -1,4 +1,4 @@
-// 300. Longest Incresing Subsequence
+// 300. Longest Increasing Subsequence
 // Difficulty: Medium
 // Source: https://leetcode.com/problems/longest-increasing-subsequence/
 //
