@@ -57,10 +57,6 @@ class Solution:
             r -= 1
 
 
-def printMatrix(matrix: List[List[int]], spaces: int) -> None:
-    for row in matrix:
-        print(' ' * spaces, '[ ' + ', '.join(list(map(lambda n: "{:2d}".format(n), row))) + ' ]')
-
 import pytest
 @pytest.mark.parametrize("matrix, expected", [
     ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[7, 4, 1], [8, 5, 2], [9, 6, 3]]),
