@@ -17,9 +17,10 @@
 # * `0 <= k <= s.length`
 #
 # Solution Discussion:
-#
-# Complexity:
-#
+# O(n) time, O(n) space solution keeps a freqency count of every character in the string
+# The trick is that we know a substring is acceptable so long as the max frequency of the
+# characters in the substring is withing k of the length of the substring. (ie. we only
+# need to replace substring - k characters to make it all the same character).
 
 
 class Solution:
